@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import PlannerPage from './pages/PlannerPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import './index.css'; // For Tailwind CSS imports if not already there
+import './styles/index.css'; // Correct path to index.css
 
 // Import the Firebase context if you're using it globally
 import { FirebaseProvider } from './contexts/FirebaseContext'; // We will create this next!
