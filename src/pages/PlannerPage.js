@@ -153,7 +153,7 @@ function PlannerPage() {
 
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg w-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg text-lg w-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
           disabled={isLoading}
         >
           {isLoading ? 'Generating Plan...' : 'Generate My Plan'}
@@ -169,14 +169,15 @@ function PlannerPage() {
           {generatedPlan.recommendedSupplements && generatedPlan.recommendedSupplements.length > 0 ? (
             <div className="space-y-4 mb-6">
               {generatedPlan.recommendedSupplements.map((s, index) => (
-                <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
+                // This is the updated line for the border color and rounded corners
+                <div key={index} className="border-l-4 border-primary pl-4 py-2 rounded-md">
                   <h4 className="text-lg font-medium text-gray-800">{s.name}</h4>
                   <p className="text-gray-600"><strong>Dosage:</strong> {s.dosage}</p>
                   <p className="text-gray-600"><strong>Timing:</strong> {s.timing}</p>
                   <p className="text-gray-600"><strong>Benefit:</strong> {s.benefit}</p>
                   {s.warnings && <p className="text-red-600 text-sm"><strong>Warning:</strong> {s.warnings}</p>}
                   {/* For now, just display affiliate link text. Later, make it a real link. */}
-                  {s.affiliateLinkText && <p className="text-blue-600 text-sm mt-1">{s.affiliateLinkText}</p>}
+                  {s.affiliateLinkText && <p className="text-primary text-sm mt-1">{s.affiliateLinkText}</p>}
                 </div>
               ))}
             </div>
@@ -200,7 +201,7 @@ function PlannerPage() {
           )}
 
           {generatedPlan.importantDisclaimer && (
-            <div className="mt-6 p-3 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 text-sm">
+            <div className="mt-6 p-3 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 text-sm rounded-md">
               <p><strong>Important Disclaimer:</strong> {generatedPlan.importantDisclaimer}</p>
             </div>
           )}
