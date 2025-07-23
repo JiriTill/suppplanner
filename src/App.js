@@ -3,17 +3,17 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PlannerPage from './pages/PlannerPage';
+import BlogPage from './pages/BlogPage'; // New Import
+import LibraryPage from './pages/LibraryPage'; // New Import
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/index.css'; // Correct path to index.css
 
 // Import the Firebase context if you're using it globally
-import { FirebaseProvider } from './contexts/FirebaseContext'; // We will create this next!
+import { FirebaseProvider } from './contexts/FirebaseContext';
 
 function App() {
   return (
-    // Wrap your application with Router for navigation
-    // Wrap with FirebaseProvider for global Firebase access
     <Router>
       <FirebaseProvider>
         <div className="flex flex-col min-h-screen bg-gray-50">
@@ -22,7 +22,9 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/planner" element={<PlannerPage />} />
-              {/* Add more routes here as your app grows, e.g., /about, /blog */}
+              <Route path="/blog" element={<BlogPage />} /> {/* New Route */}
+              <Route path="/library" element={<LibraryPage />} /> {/* New Route */}
+              {/* Add more routes here as your app grows */}
             </Routes>
           </main>
           <Footer />
@@ -33,3 +35,4 @@ function App() {
 }
 
 export default App;
+
