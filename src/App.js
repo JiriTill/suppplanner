@@ -3,8 +3,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PlannerPage from './pages/PlannerPage';
-import BlogPage from './pages/BlogPage'; // New Import
-import LibraryPage from './pages/LibraryPage'; // New Import
+import BlogPage from './pages/BlogPage';
+import LibraryPage from './pages/LibraryPage';
+import TermsPage from './pages/TermsPage'; // New Import
+import DataUsagePage from './pages/DataUsagePage'; // New Import
+import ContactPage from './pages/ContactPage'; // New Import
 import Header from './components/Header';
 import Footer from './components/Footer';
 import './styles/index.css'; // Correct path to index.css
@@ -22,9 +25,11 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/planner" element={<PlannerPage />} />
-              <Route path="/blog" element={<BlogPage />} /> {/* New Route */}
-              <Route path="/library" element={<LibraryPage />} /> {/* New Route */}
-              {/* Add more routes here as your app grows */}
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/library" element={<LibraryPage />} />
+              <Route path="/terms" element={<TermsPage />} /> {/* New Route */}
+              <Route path="/data-usage" element={<DataUsagePage />} /> {/* New Route */}
+              <Route path="/contact" element={<ContactPage />} /> {/* New Route */}
             </Routes>
           </main>
           <Footer />
@@ -35,4 +40,3 @@ function App() {
 }
 
 export default App;
-
