@@ -1,39 +1,47 @@
 // src/pages/PlannerPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import { generateSupplementPlan } from '../services/api';
-import { useFirebase } from '../contexts/FirebaseContext'; // Import useFirebase hook
+import { useFirebase } from '../contexts/FirebaseContext';
 
 function PlannerPage() {
-  const { saveGeneratedPlan } = useFirebase(); // Get saveGeneratedPlan function from context
+  const { saveGeneratedPlan } = useFirebase();
+  const location = useLocation(); // Get location object to access query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const scenario = queryParams.get('scenario'); // Get the 'scenario' parameter ('new' or 'existing')
 
   // State for user inputs
   const [userGoals, setUserGoals] = useState('');
   const [currentSupplements, setCurrentSupplements] = useState('');
   const [medicalIssues, setMedicalIssues] = useState('');
   const [healthReportFile, setHealthReportFile] = useState(null);
-  const [parsedReportData, setParsedReportData] = useState(null); // To store parsed content
+  const [parsedReportData, setParsedReportData] = useState(null);
 
   // State for AI response and UI feedback
   const [generatedPlan, setGeneratedPlan] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Handle file selection and parsing (e.g., JSON or plain text)
+  // Adjust placeholder text based on scenario
+  const currentSupplementsPlaceholder = scenario === 'existing'
+    ? "List all supplements you currently take, including dosages and brands if known. E.g., 'Creatine Monohydrate 5g daily, Optimum Nutrition Gold Standard Whey Protein 1 scoop post-workout, Vitamin D3 2000 IU daily.'"
+    : "List any supplements you currently take (optional). E.g., 'Multivitamin, Fish Oil.'";
+
+  // Handle file selection and parsing
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setHealthReportFile(file);
-      setError(null); // Clear previous errors
+      setError(null);
 
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
           const content = e.target.result;
-          // Attempt to parse as JSON first, if not, treat as plain text
           try {
             setParsedReportData(JSON.parse(content));
           } catch (jsonParseError) {
-            setParsedReportData(content); // Store as plain text if not valid JSON
+            setParsedReportData(content);
           }
         } catch (readError) {
           setError('Error reading file: ' + readError.message);
@@ -44,7 +52,7 @@ function PlannerPage() {
         setError('Failed to read file.');
         setParsedReportData(null);
       };
-      reader.readAsText(file); // Read file as text
+      reader.readAsText(file);
     } else {
       setHealthReportFile(null);
       setParsedReportData(null);
@@ -55,19 +63,19 @@ function PlannerPage() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    setGeneratedPlan(null); // Clear previous plan
+    setGeneratedPlan(null);
 
     const userInput = {
       userGoals,
       currentSupplements,
       medicalIssues,
       parsedReport: parsedReportData,
+      scenario: scenario, // Pass the scenario to the API
     };
 
     try {
       const plan = await generateSupplementPlan(userInput);
       setGeneratedPlan(plan);
-      // Save the generated plan and input to Firebase
       await saveGeneratedPlan(userInput, plan);
       console.log('Plan generated and saved successfully!');
     } catch (err) {
@@ -108,7 +116,7 @@ function PlannerPage() {
             id="currentSupplements"
             rows="2"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="e.g., Multivitamin, Creatine, Fish Oil. List dosages if known."
+            placeholder={currentSupplementsPlaceholder} // Dynamic placeholder
             value={currentSupplements}
             onChange={(e) => setCurrentSupplements(e.target.value)}
           ></textarea>
@@ -135,7 +143,7 @@ function PlannerPage() {
           <input
             type="file"
             id="healthReportFile"
-            accept=".json,.txt,.csv" // Adjust accepted file types as needed
+            accept=".json,.txt,.csv"
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                        file:rounded-full file:border-0 file:text-sm file:font-semibold
                        file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
@@ -169,14 +177,12 @@ function PlannerPage() {
           {generatedPlan.recommendedSupplements && generatedPlan.recommendedSupplements.length > 0 ? (
             <div className="space-y-4 mb-6">
               {generatedPlan.recommendedSupplements.map((s, index) => (
-                // This is the updated line for the border color and rounded corners
                 <div key={index} className="border-l-4 border-primary pl-4 py-2 rounded-md">
                   <h4 className="text-lg font-medium text-gray-800">{s.name}</h4>
                   <p className="text-gray-600"><strong>Dosage:</strong> {s.dosage}</p>
                   <p className="text-gray-600"><strong>Timing:</strong> {s.timing}</p>
                   <p className="text-gray-600"><strong>Benefit:</strong> {s.benefit}</p>
                   {s.warnings && <p className="text-red-600 text-sm"><strong>Warning:</strong> {s.warnings}</p>}
-                  {/* For now, just display affiliate link text. Later, make it a real link. */}
                   {s.affiliateLinkText && <p className="text-primary text-sm mt-1">{s.affiliateLinkText}</p>}
                 </div>
               ))}
@@ -184,7 +190,6 @@ function PlannerPage() {
           ) : (
             <p className="text-gray-600">No specific supplement recommendations at this time based on your input.</p>
           )}
-
 
           {generatedPlan.dietaryAdvice && (
             <div className="mb-4">
