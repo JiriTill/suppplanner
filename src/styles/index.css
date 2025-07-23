@@ -1,1 +1,13 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* You can add any global custom CSS here if needed */
+/* For example, setting default font, body background etc. */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
