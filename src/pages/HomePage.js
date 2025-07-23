@@ -15,11 +15,12 @@ function HomePage() {
             Get an AI-powered supplement and dietary plan tailored to your unique goals,
             current health, and medical needs.
           </p>
+          {/* Main Call to Action - Option 1: New User */}
           <Link
-            to="/planner"
+            to="/planner?scenario=new" // Link to planner with 'new' scenario
             className="inline-block bg-accent hover:bg-accent-dark text-primary-dark font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl"
           >
-            Generate Your Custom Plan Now!
+            I'm New: Generate My Custom Plan!
           </Link>
         </div>
       </section>
@@ -76,14 +77,17 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Call to Action at the bottom */}
-      <section className="py-16 px-4">
-        <h2 className="text-4xl font-bold text-gray-800 mb-6">Ready to Transform Your Health?</h2>
+      {/* Call to Action at the bottom - Option 2: Existing User */}
+      <section className="py-16 px-4 flex flex-col items-center">
+        <h2 className="text-4xl font-bold text-gray-800 mb-6">Already Taking Supplements?</h2>
+        <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+          If you're already on a regimen, we can help you optimize your schedule and ensure safe, effective combinations.
+        </p>
         <Link
-          to="/planner"
+          to="/planner?scenario=existing" // Link to planner with 'existing' scenario
           className="inline-block bg-primary hover:bg-primary-dark text-white font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl"
         >
-          Start Your Personalized Plan
+          Optimize My Current Regimen
         </Link>
       </section>
     </div>
