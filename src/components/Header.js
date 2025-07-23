@@ -1,16 +1,19 @@
 // src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-// REMOVE THIS LINE: import logo from '../public/logo512.png';
+// Reference directly from public folder
+// Ensure logo512.png is in your public/ folder
+// You can resize it to a smaller version (e.g., logo64.png) for better performance if desired
+// and then update the src="/logo64.png" below.
+// For now, let's assume logo512.png is uploaded and accessible.
 
 function Header() {
   return (
     <header className="bg-white shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          {/* REFERENCE DIRECTLY FROM PUBLIC FOLDER */}
-          <img src="/logo512.png" alt="SuppPlan Logo" className="h-8 w-8 rounded-full" /> {/* Adjust h/w as needed */}
-          <span className="text-2xl font-bold text-primary"> {/* Using custom primary color */}
+          <img src="/logo512.png" alt="SuppPlan.AI Logo" className="h-8 w-8 rounded-full" />
+          <span className="text-2xl font-bold text-primary">
             SuppPlan.AI
           </span>
         </Link>
@@ -24,6 +27,16 @@ function Header() {
             <li>
               <Link to="/planner" className="text-gray-700 hover:text-primary transition duration-200">
                 Get Plan
+              </Link>
+            </li>
+            <li> {/* New Link */}
+              <Link to="/blog" className="text-gray-700 hover:text-primary transition duration-200">
+                Blog
+              </Link>
+            </li>
+            <li> {/* New Link */}
+              <Link to="/library" className="text-gray-700 hover:text-primary transition duration-200">
+                Library
               </Link>
             </li>
           </ul>
