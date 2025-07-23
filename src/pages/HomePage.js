@@ -11,12 +11,12 @@ function HomePage() {
       <p className="text-xl text-gray-600 mb-8">
         Unlock your potential with plans tailored to your unique goals and health data.
       </p>
-      <Link
-        to="/planner"
-        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300"
-      >
-        Get Your Plan Now!
-      </Link>
+        <Link
+          to="/planner"
+          className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 shadow-md hover:shadow-lg"
+        >
+          Get Your Plan Now!
+        </Link>
       <div className="mt-12 text-gray-700">
         <h2 className="text-2xl font-semibold mb-4">How it works:</h2>
         <ul className="list-disc list-inside space-y-2 max-w-md mx-auto">
