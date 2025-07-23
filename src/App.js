@@ -1,36 +1,34 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PlannerPage from './pages/PlannerPage';
-import BlogPage from './pages/BlogPage';
-import LibraryPage from './pages/LibraryPage';
-import SupplementDetailPage from './pages/SupplementDetailPage';
-import TermsOfServicePage from './pages/TermsOfServicePage';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { AppProvider } from './contexts/AppContext';
+import './index.css'; // For Tailwind CSS imports if not already there
+
+// Import the Firebase context if you're using it globally
+import { FirebaseProvider } from './contexts/FirebaseContext'; // We will create this next!
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen">
+    // Wrap your application with Router for navigation
+    // Wrap with FirebaseProvider for global Firebase access
+    <Router>
+      <FirebaseProvider>
+        <div className="flex flex-col min-h-screen bg-gray-50">
           <Header />
           <main className="flex-grow container mx-auto p-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/planner" element={<PlannerPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/library" element={<LibraryPage />} />
-              <Route path="/library/:slug" element={<SupplementDetailPage />} />
-              <Route path="/terms" element={<TermsOfServicePage />} />
-              {/* Add more routes as you build out pages */}
+              {/* Add more routes here as your app grows, e.g., /about, /blog */}
             </Routes>
           </main>
           <Footer />
         </div>
-      </Router>
-    </AppProvider>
+      </FirebaseProvider>
+    </Router>
   );
 }
 
