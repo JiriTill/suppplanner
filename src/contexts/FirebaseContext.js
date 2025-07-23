@@ -63,7 +63,8 @@ export const FirebaseProvider = ({ children }) => {
       return null;
     }
     try {
-      const docRef = await addDoc(collection(firestoreDb, "generated_plans"), {
+      // *** IMPORTANT CHANGE HERE: Collection name changed from "generated_plans" to "generatedPlans" ***
+      const docRef = await addDoc(collection(firestoreDb, "generatedPlans"), {
         userId: user.uid,
         userInput: userInput,
         aiOutput: aiOutput,
