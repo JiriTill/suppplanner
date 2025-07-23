@@ -1,5 +1,6 @@
 // src/pages/BlogPage.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // <--- ADDED THIS LINE
 
 function BlogPage() {
   // Mock blog post data
