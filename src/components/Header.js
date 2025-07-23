@@ -12,9 +12,9 @@ function Header() {
     <header className="bg-white shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          <img src="/logo512.png" alt="SuppPlan.AI Logo" className="h-8 w-8 rounded-full" />
+          <img src="/logo512.png" alt="SuppPlan Logo" className="h-8 w-8 rounded-full" />
           <span className="text-2xl font-bold text-primary">
-            SuppPlan.AI
+            SuppPlan
           </span>
         </Link>
         <nav>
