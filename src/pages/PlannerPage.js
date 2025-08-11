@@ -503,7 +503,7 @@ function PlannerPage() {
               required
             />
             <label htmlFor="hasConsented" className="ml-2 text-sm text-gray-700 leading-tight">
-              I understand that the recommendations are for informational purposes only and are **not a substitute for medical advice**. I have read and agree to the <Link to="/terms" className="text-purple-600 hover:underline">Terms of Service</Link> and <Link to="/data-usage" className="text-purple-600 hover:underline">Data Usage Policy</Link>. <span className="text-red-500">*</span>
+              I understand that the recommendations are for informational purposes only and are <strong>not a substitute for medical advice</strong>. I have read and agree to the <Link to="/terms" className="text-purple-600 hover:underline">Terms of Service</Link> and <Link to="/data-usage" className="text-purple-600 hover:underline">Data Usage Policy</Link>. <span className="text-red-500">*</span>
             </label>
           </div>
         </section>
