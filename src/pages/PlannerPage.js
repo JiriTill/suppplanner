@@ -1,4 +1,6 @@
+// src/pages/PlannerPage.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // <-- This line was missing
 import { generateSupplementPlan } from '../services/api';
 import { useFirebase } from '../contexts/FirebaseContext';
 
