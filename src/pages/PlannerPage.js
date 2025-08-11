@@ -1,6 +1,5 @@
-// src/pages/PlannerPage.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // <-- This line was missing
+import { Link } from 'react-router-dom';
 import { generateSupplementPlan } from '../services/api';
 import { useFirebase } from '../contexts/FirebaseContext';
 
@@ -120,7 +119,7 @@ function PlannerPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.hasConsented || formData.goals.length === 0 && !formData.otherGoal) {
+    if (!formData.hasConsented || (formData.goals.length === 0 && !formData.otherGoal)) {
       setError('Please select at least one goal and consent to the terms.');
       return;
     }
@@ -145,6 +144,25 @@ function PlannerPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Function to render the button content dynamically
+  const renderButtonContent = () => {
+    if (isLoading) {
+      return (
+        <span className="flex items-center justify-center">
+          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Generating Plan...
+        </span>
+      );
+    }
+    if (generatedPlan) {
+      return 'Your plan is generated!';
+    }
+    return 'Generate My Plan';
   };
 
   return (
@@ -503,7 +521,7 @@ function PlannerPage() {
               required
             />
             <label htmlFor="hasConsented" className="ml-2 text-sm text-gray-700 leading-tight">
-              I understand that the recommendations are for informational purposes only and are <strong>not a substitute for medical advice</strong>. I have read and agree to the <Link to="/terms" className="text-purple-600 hover:underline">Terms of Service</Link> and <Link to="/data-usage" className="text-purple-600 hover:underline">Data Usage Policy</Link>. <span className="text-red-500">*</span>
+              I understand that the recommendations are for informational purposes only and are **not a substitute for medical advice**. I have read and agree to the <Link to="/terms" className="text-purple-600 hover:underline">Terms of Service</Link> and <Link to="/data-usage" className="text-purple-600 hover:underline">Data Usage Policy</Link>. <span className="text-red-500">*</span>
             </label>
           </div>
         </section>
@@ -515,7 +533,7 @@ function PlannerPage() {
           className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg text-lg w-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
           disabled={isLoading || !formData.hasConsented || (formData.goals.length === 0 && !formData.otherGoal)}
         >
-          {isLoading ? 'Generating Plan...' : 'Generate My Plan'}
+          {renderButtonContent()}
         </button>
       </form>
 
