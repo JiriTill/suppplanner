@@ -1,4 +1,3 @@
-// src/pages/HomePage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,13 +14,22 @@ function HomePage() {
             Get an AI-powered supplement and dietary plan tailored to your unique goals,
             current health, and medical needs.
           </p>
-          {/* Main Call to Action - Option 1: New User */}
-          <Link
-            to="/planner?scenario=new" // Link to planner with 'new' scenario
-            className="inline-block bg-accent hover:bg-accent-dark text-primary-dark font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl"
-          >
-            I'm New: Generate My Custom Plan!
-          </Link>
+          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 justify-center items-center">
+            {/* Button 1: New User */}
+            <Link
+              to="/planner"
+              className="inline-block bg-accent hover:bg-accent-dark text-primary-dark font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl"
+            >
+              I'm new: Create my custom plan!
+            </Link>
+            {/* Button 2: Existing User */}
+            <Link
+              to="/check-planner"
+              className="inline-block bg-white hover:bg-gray-100 text-primary-dark font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl border-2 border-primary"
+            >
+              Check my current plan
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -76,20 +84,8 @@ function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Call to Action at the bottom - Option 2: Existing User */}
-      <section className="py-16 px-4 flex flex-col items-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-6">Already Taking Supplements?</h2>
-        <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-          If you're already on a regimen, we can help you optimize your schedule and ensure safe, effective combinations.
-        </p>
-        <Link
-          to="/planner?scenario=existing" // Link to planner with 'existing' scenario
-          className="inline-block bg-primary hover:bg-primary-dark text-white font-extrabold py-4 px-10 rounded-full text-xl transition duration-300 transform hover:scale-105 shadow-xl"
-        >
-          Optimize My Current Regimen
-        </Link>
-      </section>
+      
+      <div className="py-12"></div>
     </div>
   );
 }
