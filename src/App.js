@@ -10,6 +10,9 @@ import ContactPage from './pages/ContactPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// Import the new page component
+import CheckPlannerPage from './pages/CheckPlannerPage';
+
 // Import the Firebase context if you're using it globally
 import { FirebaseProvider } from './contexts/FirebaseContext';
 
@@ -29,6 +32,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/planner" element={<PlannerPage />} />
+              {/* New Route for the CheckPlannerPage */}
               <Route path="/check-planner" element={<CheckPlannerPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/library" element={<LibraryPage />} />
