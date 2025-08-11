@@ -1,39 +1,100 @@
-// src/pages/PlannerPage.js
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import React, { useState } from 'react';
 import { generateSupplementPlan } from '../services/api';
 import { useFirebase } from '../contexts/FirebaseContext';
 
+// Define the checkbox options for goals and medical conditions
+const goalOptions = [
+  'Better sleep', 'Focus', 'Energy', 'Mood', 'Stress', 'Muscle gain',
+  'Fat loss', 'Immunity', 'Gut health', 'Hair/skin/nails', 'Joint health',
+  'Heart health', 'General wellness'
+];
+
+const dietPatternOptions = [
+  'Omnivore', 'Vegetarian', 'Vegan', 'Keto/Low-carb', 'Paleo', 'Low-FODMAP'
+];
+
+const medicalConditionOptions = [
+  'Thyroid issues', 'Diabetes', 'Kidney issues', 'Liver issues', 'GI issues', 'Hypertension'
+];
+
+const medicationFlags = [
+  'Anticoagulants', 'SSRIs/SNRIs', 'MAOIs', 'Stimulants', 'Thyroid meds', 'Immunosuppressants'
+];
+
 function PlannerPage() {
   const { saveGeneratedPlan } = useFirebase();
-  const location = useLocation(); // Get location object to access query parameters
-  const queryParams = new URLSearchParams(location.search);
-  const scenario = queryParams.get('scenario'); // Get the 'scenario' parameter ('new' or 'existing')
 
-  // State for user inputs
-  const [userGoals, setUserGoals] = useState('');
-  const [currentSupplements, setCurrentSupplements] = useState('');
-  const [medicalIssues, setMedicalIssues] = useState('');
-  const [healthReportFile, setHealthReportFile] = useState(null);
-  const [parsedReportData, setParsedReportData] = useState(null);
+  // State for form inputs
+  const [formData, setFormData] = useState({
+    // Main Goal (mandatory)
+    goals: [],
+    otherGoal: '',
+    // Personal Info
+    age: '',
+    sex: '',
+    weight: '',
+    height: '',
+    isPregnant: '',
+    // Health Details
+    medicalConditions: [],
+    otherMedicalCondition: '',
+    prescriptionMeds: '',
+    medicationFlags: [],
+    otherMedicationFlag: '',
+    allergies: '',
+    // Lifestyle
+    dietPattern: '',
+    otherDietPattern: '',
+    dietAvoidances: '',
+    ethicalReligious: [],
+    coffeePerDay: '',
+    lastCaffeineTime: '',
+    alcoholDaysPerWeek: '',
+    nicotineUse: '',
+    // Consent
+    hasConsented: false,
+  });
 
   // State for AI response and UI feedback
   const [generatedPlan, setGeneratedPlan] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Adjust placeholder text based on scenario
-  const currentSupplementsPlaceholder = scenario === 'existing'
-    ? "List all supplements you currently take, including dosages and brands if known. E.g., 'Creatine Monohydrate 5g daily, Optimum Nutrition Gold Standard Whey Protein 1 scoop post-workout, Vitamin D3 2000 IU daily.'"
-    : "List any supplements you currently take (optional). E.g., 'Multivitamin, Fish Oil.'";
+  // File upload state
+  const [healthReportFile, setHealthReportFile] = useState(null);
+  const [parsedReportData, setParsedReportData] = useState(null);
 
-  // Handle file selection and parsing
+  // Handle form changes for various input types
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      const listName = name; // e.g., 'goals'
+      const optionValue = value; // e.g., 'Better sleep'
+      setFormData(prev => ({
+        ...prev,
+        [listName]: checked
+          ? [...prev[listName], optionValue]
+          : prev[listName].filter(item => item !== optionValue)
+      }));
+    } else if (name === 'otherMedicationFlag') {
+      setFormData(prev => ({
+        ...prev,
+        medicationFlags: checked
+          ? [...prev.medicationFlags, 'Others']
+          : prev.medicationFlags.filter(item => item !== 'Others')
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setHealthReportFile(file);
-      setError(null);
-
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
@@ -48,10 +109,6 @@ function PlannerPage() {
           setParsedReportData(null);
         }
       };
-      reader.onerror = () => {
-        setError('Failed to read file.');
-        setParsedReportData(null);
-      };
       reader.readAsText(file);
     } else {
       setHealthReportFile(null);
@@ -61,16 +118,18 @@ function PlannerPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.hasConsented || formData.goals.length === 0 && !formData.otherGoal) {
+      setError('Please select at least one goal and consent to the terms.');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     setGeneratedPlan(null);
 
     const userInput = {
-      userGoals,
-      currentSupplements,
-      medicalIssues,
+      ...formData,
       parsedReport: parsedReportData,
-      scenario: scenario, // Pass the scenario to the API
     };
 
     try {
@@ -88,88 +147,378 @@ function PlannerPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-        Generate Your Personalized Supplement Plan
+      <h1 className="text-3xl md:text-4xl font-bold text-primary mb-8 text-center">
+        Create Your Personalized Plan
       </h1>
 
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md mb-8">
-        <div className="mb-4">
-          <label htmlFor="userGoals" className="block text-gray-700 text-sm font-bold mb-2">
-            Your Health/Fitness Goals:
-          </label>
-          <textarea
-            id="userGoals"
-            rows="4"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="e.g., Build muscle, lose weight, increase energy, improve sleep, better recovery..."
-            value={userGoals}
-            onChange={(e) => setUserGoals(e.target.value)}
-            required
-          ></textarea>
-        </div>
+      <form onSubmit={handleSubmit} className="bg-white p-6 md:p-10 rounded-xl shadow-lg mb-8">
+        {/* Section 1: Goals */}
+        <section className="mb-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+          <h2 className="text-2xl font-bold text-blue-800 mb-4">1. What’s your main goal? (pick up to 3) <span className="text-red-500">*</span></h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {goalOptions.map(goal => (
+              <label key={goal} className={`flex items-center space-x-2 p-3 rounded-lg cursor-pointer transition duration-200 ${formData.goals.includes(goal) ? 'bg-blue-200 text-blue-800 font-semibold shadow-md' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'}`}>
+                <input
+                  type="checkbox"
+                  name="goals"
+                  value={goal}
+                  checked={formData.goals.includes(goal)}
+                  onChange={handleInputChange}
+                  className="form-checkbox text-blue-600 rounded-sm"
+                  disabled={formData.goals.length >= 3 && !formData.goals.includes(goal)}
+                />
+                <span>{goal}</span>
+              </label>
+            ))}
+          </div>
+          <div className="mt-4">
+            <label htmlFor="otherGoal" className="block text-sm font-medium text-gray-700 mb-2">Other:</label>
+            <input
+              type="text"
+              id="otherGoal"
+              name="otherGoal"
+              value={formData.otherGoal}
+              onChange={handleInputChange}
+              placeholder="e.g., Longevity, specific performance target"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            />
+          </div>
+        </section>
 
-        <div className="mb-4">
-          <label htmlFor="currentSupplements" className="block text-gray-700 text-sm font-bold mb-2">
-            Current Supplements You're Taking (if any):
-          </label>
-          <textarea
-            id="currentSupplements"
-            rows="2"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder={currentSupplementsPlaceholder} // Dynamic placeholder
-            value={currentSupplements}
-            onChange={(e) => setCurrentSupplements(e.target.value)}
-          ></textarea>
-        </div>
+        {/* Section 2: Personal Info */}
+        <section className="mb-8 p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">2. Personal Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-4">
+              <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age:</label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                value={formData.age}
+                onChange={handleInputChange}
+                min="1"
+                max="120"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+              />
+              <div className="flex items-center space-x-4">
+                <span className="text-sm font-medium text-gray-700">Sex:</span>
+                <label className="inline-flex items-center">
+                  <input type="radio" name="sex" value="female" checked={formData.sex === 'female'} onChange={handleInputChange} className="form-radio text-blue-600" />
+                  <span className="ml-2">Female</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="radio" name="sex" value="male" checked={formData.sex === 'male'} onChange={handleInputChange} className="form-radio text-blue-600" />
+                  <span className="ml-2">Male</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <label htmlFor="weight" className="block text-sm font-medium text-gray-700">Weight & Height:</label>
+              <div className="flex space-x-4 mt-1">
+                <input
+                  type="text"
+                  id="weight"
+                  name="weight"
+                  value={formData.weight}
+                  onChange={handleInputChange}
+                  placeholder="Weight (e.g., 75 kg)"
+                  className="w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                />
+                <input
+                  type="text"
+                  id="height"
+                  name="height"
+                  value={formData.height}
+                  onChange={handleInputChange}
+                  placeholder="Height (e.g., 180 cm)"
+                  className="w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                />
+              </div>
+              <div className="mt-4 flex items-center space-x-4">
+                <span className="text-sm font-medium text-gray-700">Pregnant/Breastfeeding?</span>
+                <label className="inline-flex items-center">
+                  <input type="radio" name="isPregnant" value="no" checked={formData.isPregnant === 'no'} onChange={handleInputChange} className="form-radio text-blue-600" />
+                  <span className="ml-2">No</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input type="radio" name="isPregnant" value="yes" checked={formData.isPregnant === 'yes'} onChange={handleInputChange} className="form-radio text-blue-600" />
+                  <span className="ml-2">Yes</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="mb-4">
-          <label htmlFor="medicalIssues" className="block text-gray-700 text-sm font-bold mb-2">
-            Any Medical Conditions or Medications (for safety):
-          </label>
-          <textarea
-            id="medicalIssues"
-            rows="2"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="e.g., High blood pressure, diabetes, taking warfarin. This helps ensure safe recommendations."
-            value={medicalIssues}
-            onChange={(e) => setMedicalIssues(e.target.value)}
-          ></textarea>
-        </div>
+        {/* Section 3: Health & Medications */}
+        <section className="mb-8 p-6 bg-red-50 rounded-lg border-l-4 border-red-500">
+          <h2 className="text-2xl font-bold text-red-800 mb-4">3. Health & Medications</h2>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Do you have any medical conditions we should consider?</label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {medicalConditionOptions.map(condition => (
+                <label key={condition} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="medicalConditions"
+                    value={condition}
+                    checked={formData.medicalConditions.includes(condition)}
+                    onChange={handleInputChange}
+                    className="form-checkbox text-red-600 rounded-sm"
+                  />
+                  <span>{condition}</span>
+                </label>
+              ))}
+            </div>
+            <div className="mt-4">
+              <label htmlFor="otherMedicalCondition" className="block text-sm font-medium text-gray-700 mb-2">Other:</label>
+              <input
+                type="text"
+                id="otherMedicalCondition"
+                name="otherMedicalCondition"
+                value={formData.otherMedicalCondition}
+                onChange={handleInputChange}
+                placeholder="e.g., PCOS, autoimmune disease, etc."
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
+              />
+            </div>
+          </div>
 
-        <div className="mb-6">
-          <label htmlFor="healthReportFile" className="block text-gray-700 text-sm font-bold mb-2">
-            Optional: Upload Health Report (JSON or Text File):
-          </label>
-          <input
-            type="file"
-            id="healthReportFile"
-            accept=".json,.txt,.csv"
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
-                       file:rounded-full file:border-0 file:text-sm file:font-semibold
-                       file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            onChange={handleFileChange}
-          />
-          {healthReportFile && (
-            <p className="text-gray-600 text-xs mt-1">File selected: {healthReportFile.name}</p>
-          )}
-          {parsedReportData && (
-             <p className="text-green-600 text-xs mt-1">File parsed successfully. Data type: {typeof parsedReportData === 'object' ? 'JSON Object' : 'Text'}</p>
-          )}
-        </div>
+          <div className="mb-4">
+            <label htmlFor="prescriptionMeds" className="block text-sm font-medium text-gray-700 mb-2">Which prescription meds do you take? (name + dose + time)</label>
+            <textarea
+              id="prescriptionMeds"
+              name="prescriptionMeds"
+              rows="2"
+              value={formData.prescriptionMeds}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
+            ></textarea>
+            <div className="mt-2 text-sm text-gray-600">Quick flags:</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+              {medicationFlags.map(flag => (
+                <label key={flag} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="medicationFlags"
+                    value={flag}
+                    checked={formData.medicationFlags.includes(flag)}
+                    onChange={handleInputChange}
+                    className="form-checkbox text-red-600 rounded-sm"
+                  />
+                  <span>{flag}</span>
+                </label>
+              ))}
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="otherMedicationFlag"
+                  value="Others"
+                  checked={formData.medicationFlags.includes('Others')}
+                  onChange={handleInputChange}
+                  className="form-checkbox text-red-600 rounded-sm"
+                />
+                <span>Others</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="allergies" className="block text-sm font-medium text-gray-700 mb-2">Any allergies or ingredient sensitivities?</label>
+            <textarea
+              id="allergies"
+              name="allergies"
+              rows="2"
+              value={formData.allergies}
+              onChange={handleInputChange}
+              placeholder="e.g., shellfish, soy, gluten, lactose"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring focus:ring-red-500 focus:ring-opacity-50"
+            ></textarea>
+          </div>
+        </section>
+
+        {/* Section 4: Lifestyle */}
+        <section className="mb-8 p-6 bg-green-50 rounded-lg border-l-4 border-green-500">
+          <h2 className="text-2xl font-bold text-green-800 mb-4">4. Lifestyle & Diet</h2>
+          <div className="mb-4">
+            <label htmlFor="dietPattern" className="block text-sm font-medium text-gray-700 mb-2">Diet pattern?</label>
+            <div className="flex flex-wrap gap-2">
+              {dietPatternOptions.map(pattern => (
+                <label key={pattern} className={`flex items-center space-x-2 p-2 rounded-lg cursor-pointer transition duration-200 ${formData.dietPattern === pattern ? 'bg-green-200 text-green-800 font-semibold shadow-md' : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'}`}>
+                  <input
+                    type="radio"
+                    name="dietPattern"
+                    value={pattern}
+                    checked={formData.dietPattern === pattern}
+                    onChange={handleInputChange}
+                    className="form-radio text-green-600"
+                  />
+                  <span>{pattern}</span>
+                </label>
+              ))}
+            </div>
+            <div className="mt-4 flex space-x-4">
+              <div className="flex-grow">
+                <label htmlFor="otherDietPattern" className="block text-sm font-medium text-gray-700 mb-2">Other:</label>
+                <input
+                  type="text"
+                  id="otherDietPattern"
+                  name="otherDietPattern"
+                  value={formData.otherDietPattern}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Mediterranean"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+                />
+              </div>
+              <div className="flex-grow">
+                <label htmlFor="dietAvoidances" className="block text-sm font-medium text-gray-700 mb-2">Avoidances:</label>
+                <input
+                  type="text"
+                  id="dietAvoidances"
+                  name="dietAvoidances"
+                  value={formData.dietAvoidances}
+                  onChange={handleInputChange}
+                  placeholder="e.g., pork, alcohol"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+                />
+              </div>
+            </div>
+            <div className="mt-4">
+              <span className="text-sm font-medium text-gray-700 mb-2">Ethical/religious:</span>
+              <div className="flex flex-wrap gap-4 mt-2">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="ethicalReligious"
+                    value="Halal"
+                    checked={formData.ethicalReligious.includes("Halal")}
+                    onChange={handleInputChange}
+                    className="form-checkbox text-green-600 rounded-sm"
+                  />
+                  <span>Halal</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name="ethicalReligious"
+                    value="Kosher"
+                    checked={formData.ethicalReligious.includes("Kosher")}
+                    onChange={handleInputChange}
+                    className="form-checkbox text-green-600 rounded-sm"
+                  />
+                  <span>Kosher</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div>
+              <label htmlFor="coffeePerDay" className="block text-sm font-medium text-gray-700 mb-2">Coffee/tea/energy drinks per day:</label>
+              <input
+                type="number"
+                id="coffeePerDay"
+                name="coffeePerDay"
+                value={formData.coffeePerDay}
+                onChange={handleInputChange}
+                min="0"
+                placeholder="e.g., 2"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+              />
+            </div>
+            <div>
+              <label htmlFor="lastCaffeineTime" className="block text-sm font-medium text-gray-700 mb-2">Last caffeine time:</label>
+              <input
+                type="time"
+                id="lastCaffeineTime"
+                name="lastCaffeineTime"
+                value={formData.lastCaffeineTime}
+                onChange={handleInputChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div>
+              <label htmlFor="alcoholDaysPerWeek" className="block text-sm font-medium text-gray-700 mb-2">Alcohol days/week:</label>
+              <input
+                type="number"
+                id="alcoholDaysPerWeek"
+                name="alcoholDaysPerWeek"
+                value={formData.alcoholDaysPerWeek}
+                onChange={handleInputChange}
+                min="0"
+                max="7"
+                placeholder="e.g., 2"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50"
+              />
+            </div>
+            <div className="flex items-center mt-6">
+              <span className="text-sm font-medium text-gray-700">Nicotine use:</span>
+              <label className="inline-flex items-center ml-4">
+                <input type="radio" name="nicotineUse" value="no" checked={formData.nicotineUse === 'no'} onChange={handleInputChange} className="form-radio text-green-600" />
+                <span className="ml-2">No</span>
+              </label>
+              <label className="inline-flex items-center ml-4">
+                <input type="radio" name="nicotineUse" value="yes" checked={formData.nicotineUse === 'yes'} onChange={handleInputChange} className="form-radio text-green-600" />
+                <span className="ml-2">Yes</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Optional Report & Consent */}
+        <section className="mb-8 p-6 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+          <h2 className="text-2xl font-bold text-purple-800 mb-4">5. Final Details & Consent</h2>
+          <div className="mb-6">
+            <label htmlFor="healthReportFile" className="block text-gray-700 text-sm font-bold mb-2">
+              Optional: Upload Health Report (JSON or Text File):
+            </label>
+            <input
+              type="file"
+              id="healthReportFile"
+              accept=".json,.txt,.csv"
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+                         file:rounded-full file:border-0 file:text-sm file:font-semibold
+                         file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+              onChange={handleFileChange}
+            />
+            {healthReportFile && (
+              <p className="text-gray-600 text-xs mt-1">File selected: {healthReportFile.name}</p>
+            )}
+            {parsedReportData && (
+              <p className="text-green-600 text-xs mt-1">File parsed successfully. Data type: {typeof parsedReportData === 'object' ? 'JSON Object' : 'Text'}</p>
+            )}
+          </div>
+          <div className="flex items-start mb-6">
+            <input
+              type="checkbox"
+              name="hasConsented"
+              checked={formData.hasConsented}
+              onChange={(e) => setFormData(prev => ({ ...prev, hasConsented: e.target.checked }))}
+              className="mt-1 form-checkbox text-purple-600 rounded-sm"
+              required
+            />
+            <label htmlFor="hasConsented" className="ml-2 text-sm text-gray-700 leading-tight">
+              I understand that the recommendations are for informational purposes only and are **not a substitute for medical advice**. I have read and agree to the <Link to="/terms" className="text-purple-600 hover:underline">Terms of Service</Link> and <Link to="/data-usage" className="text-purple-600 hover:underline">Data Usage Policy</Link>. <span className="text-red-500">*</span>
+            </label>
+          </div>
+        </section>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <button
           type="submit"
           className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg text-lg w-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
-          disabled={isLoading}
+          disabled={isLoading || !formData.hasConsented || (formData.goals.length === 0 && !formData.otherGoal)}
         >
           {isLoading ? 'Generating Plan...' : 'Generate My Plan'}
         </button>
       </form>
 
       {generatedPlan && (
-        <div className="bg-white p-8 rounded-lg shadow-md">
+        <div className="bg-white p-8 rounded-lg shadow-md mt-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">{generatedPlan.planTitle || 'Your Personalized Supplement Plan'}</h2>
           <p className="text-gray-700 mb-4">{generatedPlan.introduction}</p>
 
