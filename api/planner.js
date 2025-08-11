@@ -97,6 +97,18 @@ export default async function handler(req, res) {
     }
     
     STRICTNESS
+    - Do NOT use generic category names as "name" (e.g., "Multivitamin", "Probiotic", "Protein powder", "Greens powder", "Pre-workout", "Electrolyte mix", "Nootropic blend").
+    - Each "name" must be a **specific formulation**:
+      • For single-ingredient: "<Compound> (<preferred form>) — <elemental dose or IU per serving>"
+        - Examples: "Magnesium (glycinate) — 200 mg elemental", "Vitamin D3 (cholecalciferol) — 2000 IU"
+      • For combos: "<Formula purpose>: <key actives + forms + per-serving amounts>"
+        - Example: "Bone support: Vitamin D3 2000 IU + K2 (MK-7) 90 mcg"
+      • For probiotics: include **strain(s)** and **CFU** (e.g., "Lactobacillus rhamnosus GG — 10B CFU").
+      • For omega-3: specify **EPA/DHA per day** (e.g., "Fish oil — EPA 1000 mg + DHA 500 mg").
+      • For creatine: specify monohydrate and grams (e.g., "Creatine monohydrate — 3–5 g daily").
+    - If you would normally suggest a "multivitamin", instead propose a **targeted foundational combo** listing 4–6 priority micronutrients with doses (e.g., "Foundational micronutrients: B12 (methylcobalamin) 500 mcg, Folate (5-MTHF) 400 mcg, Zinc (picolinate) 15 mg, Iodine 150 mcg" …) and ensure no dose clashes with other items.
+    - Avoid duplicate coverage across items; if a combo includes D3 or zinc, adjust other picks/doses accordingly.
+
     - Output must be **valid JSON** (UTF-8, double quotes, no trailing commas, no comments).
     - Do **not** include any text outside the JSON block.
     - Keep language clear and actionable for beginners.
