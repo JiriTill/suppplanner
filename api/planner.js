@@ -23,7 +23,17 @@ export default async function handler(req, res) {
     const MODEL = "gpt-4o-mini"; // Or "gpt-3.5-turbo" or "gpt-4o"
 
     // Extract user input from the request body
-    const { userGoals, currentSupplements, medicalIssues, parsedReport } = req.body;
+    const {
+      userGoals,
+      currentSupplements,
+      medicalIssues,
+      parsedReport,
+      dailySchedule,
+      dietInfo,
+      medications,
+      countryRegion
+    } = req.body || {};
+
 
     // Construct a detailed prompt for OpenAI
     const promptMessages = [
