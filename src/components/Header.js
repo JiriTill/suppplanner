@@ -1,47 +1,63 @@
-// src/components/Header.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// Reference directly from public folder
-// Ensure logo512.png is in your public/ folder
-// You can resize it to a smaller version (e.g., logo64.png) for better performance if desired
-// and then update the src="/logo64.png" below.
-// For now, let's assume logo512.png is uploaded and accessible.
+import logo from '../assets/logo512.png';
 
+/**
+ * Header component for navigation.
+ * Implements a responsive design with a hamburger menu for mobile devices.
+ * The menu is hidden on small screens and appears when the menu button is clicked.
+ */
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <header className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
-          <img src="/logo512.png" alt="SuppPlan Logo" className="h-8 w-8 rounded-full" />
-          <span className="text-2xl font-bold text-primary">
-            SuppPlan
-          </span>
-        </Link>
-        <nav>
-          <ul className="flex space-x-6">
-            <li>
-              <Link to="/" className="text-gray-700 hover:text-primary transition duration-200">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/planner" className="text-gray-700 hover:text-primary transition duration-200">
-                Get Plan
-              </Link>
-            </li>
-            <li> {/* New Link */}
-              <Link to="/blog" className="text-gray-700 hover:text-primary transition duration-200">
-                Blog
-              </Link>
-            </li>
-            <li> {/* New Link */}
-              <Link to="/library" className="text-gray-700 hover:text-primary transition duration-200">
-                Library
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <header className="bg-white shadow-md">
+      <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
+        {/* Logo and App Title */}
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center space-x-2">
+            <img src={logo} alt="Supplement Planner Logo" className="h-10 w-10" />
+            <span className="text-xl font-bold text-gray-800">SuppPlan.ai</span>
+          </Link>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden sm:flex items-center space-x-6">
+          <Link to="/" className="text-gray-600 hover:text-primary transition-colors duration-200">Home</Link>
+          <Link to="/planner" className="text-gray-600 hover:text-primary transition-colors duration-200">Planner</Link>
+          <Link to="/check-planner" className="text-gray-600 hover:text-primary transition-colors duration-200">Check My Plan</Link>
+          <Link to="/blog" className="text-gray-600 hover:text-primary transition-colors duration-200">Blog</Link>
+          <Link to="/library" className="text-gray-600 hover:text-primary transition-colors duration-200">Library</Link>
+          <Link to="/contact" className="text-gray-600 hover:text-primary transition-colors duration-200">Contact</Link>
+        </div>
+
+        {/* Mobile Menu Button (Hamburger) */}
+        <div className="sm:hidden flex items-center">
+          <button onClick={toggleMenu} className="text-gray-600 focus:outline-none focus:text-primary">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="sm:hidden bg-white shadow-lg border-t border-gray-200 py-2">
+          <div className="flex flex-col items-start px-4 space-y-2">
+            <Link to="/" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Home</Link>
+            <Link to="/planner" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Planner</Link>
+            <Link to="/check-planner" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Check My Plan</Link>
+            <Link to="/blog" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Blog</Link>
+            <Link to="/library" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Library</Link>
+            <Link to="/contact" className="block w-full py-2 text-gray-600 hover:bg-gray-100 px-4 rounded-md" onClick={toggleMenu}>Contact</Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
