@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo512.png';
 
 /**
  * Header component for navigation.
@@ -20,7 +19,8 @@ function Header() {
         {/* Logo and App Title */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <img src={logo} alt="Supplement Planner Logo" className="h-10 w-10" />
+            {/* Using a placeholder image URL to prevent "Module not found" build errors */}
+            <img src="https://placehold.co/40x40/94a3b8/e2e8f0?text=SP" alt="Supplement Planner Logo" className="h-10 w-10" />
             <span className="text-xl font-bold text-gray-800">SuppPlan.ai</span>
           </Link>
         </div>
