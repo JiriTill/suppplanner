@@ -1,0 +1,10 @@
+{
+"slug": "alpha-gpc",
+"title": "Alpha‑GPC",
+"summary": "Choline donor often used for focus; individual response varies.",
+"timing": ["Morning or pre‑task"],
+"goals": { "focus": { "evidence": "C", "typical_dose_mg": [150, 300] } },
+"contraindications": ["Certain neurological conditions: consult clinician"],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
