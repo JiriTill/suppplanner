@@ -1,1 +1,14 @@
-
+{
+"slug": "vitamin-d3",
+"title": "Vitamin D3",
+"summary": "Commonly used to support vitamin D status. Conservative approach recommended; consider testing levels via clinician.",
+"timing": ["With a meal containing fat"],
+"goals": {
+"longevity": { "evidence": "B", "typical_dose_mg": [10, 50], "note": "Shown as µg; 10 µg = 400 IU" },
+"immunity": { "evidence": "B", "typical_dose_mg": [10, 50], "note": "µg/day (400–2000 IU)" }
+},
+"ul": { "iu_per_day": 4000 },
+"contraindications": ["Certain disorders affecting calcium; discuss with clinician"],
+"interactions": ["May affect certain meds impacting calcium metabolism"],
+"affiliates": { "eu": [], "us": [] }
+}
