@@ -1,1 +1,13 @@
-
+{
+"slug": "creatine-monohydrate",
+"title": "Creatine Monohydrate",
+"summary": "Commonly used for power and muscle recovery.",
+"timing": ["Daily at consistent time"],
+"goals": {
+"muscle-recovery": { "evidence": "A", "typical_dose_mg": [3000, 5000] },
+"energy": { "evidence": "B", "typical_dose_mg": [3000, 5000] }
+},
+"contraindications": ["Kidney disease: discuss with clinician"],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
