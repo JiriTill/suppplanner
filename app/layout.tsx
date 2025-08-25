@@ -1,13 +1,22 @@
-import type { Metadata } from 'next';
 import './globals.css';
+import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Script from 'next/script';
 
 
 export const metadata: Metadata = {
-title: 'SuppPlan',
-description: 'Smart, safe supplement planning assistant',
-metadataBase: new URL('https://suppplan.example.com')
+title: 'SuppPlanner – Simple, safer supplement plans',
+description: 'Dataset‑aware supplement planner, stack checker, and ingredient library. Educational only — not medical advice.',
+themeColor: '#0f7a4e',
+icons: { icon: '/favicon.ico' },
+openGraph: {
+title: 'SuppPlanner',
+description: 'Build a simple, safer supplement plan. Check your stack. Browse the library.',
+url: 'https://your-domain.tld', // TODO: set
+siteName: 'SuppPlanner',
+type: 'website',
+},
 };
 
 
@@ -15,8 +24,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 return (
 <html lang="en">
 <body>
+{process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+<Script
+id="adsense"
+async
+src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+crossOrigin="anonymous"
+strategy="afterInteractive"
+/>
+)}
 <Header />
-<main className="container py-6">{children}</main>
+{children}
 <Footer />
 </body>
 </html>
