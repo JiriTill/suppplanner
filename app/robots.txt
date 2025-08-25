@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://suppplan.example.com/sitemap.xml
