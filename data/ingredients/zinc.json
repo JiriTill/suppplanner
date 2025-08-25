@@ -1,1 +1,13 @@
-
+{
+"slug": "zinc",
+"title": "Zinc",
+"summary": "Commonly used mineral; excess may affect copper status.",
+"timing": ["With food to reduce nausea", "Separate from iron/calcium if possible"],
+"goals": {
+"immunity": { "evidence": "B", "typical_dose_mg": [5, 15] }
+},
+"ul": { "us_mg_per_day": 40, "eu_mg_per_day": 25 },
+"contraindications": ["Copper deficiency risk with long-term high dosing"],
+"interactions": ["May reduce absorption of certain antibiotics"],
+"affiliates": { "eu": [], "us": [] }
+}
