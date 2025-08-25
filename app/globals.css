@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root { color-scheme: light; }
 body { @apply bg-soft text-ink; }
-
 
 .btn { @apply inline-flex items-center justify-center px-4 py-2 rounded-xl font-medium; }
 .btn-primary { @apply btn bg-primary text-white hover:opacity-90 shadow; }
 .btn-outline { @apply btn border; }
 .card { @apply rounded-2xl border bg-white shadow-sm; }
+
+.btn-lg { @apply px-6 py-3 text-base md:text-lg; }
