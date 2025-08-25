@@ -1,0 +1,10 @@
+{
+"slug": "curcumin",
+"title": "Curcumin",
+"summary": "Turmeric extract; low bioavailability unless formulated. GI upset possible.",
+"timing": ["With meals"],
+"goals": { "longevity": { "evidence": "C", "typical_dose_mg": [500, 1000] } },
+"contraindications": ["Gallbladder disease: discuss with clinician"],
+"interactions": ["Potential anticoagulant interaction"],
+"affiliates": { "eu": [], "us": [] }
+}
