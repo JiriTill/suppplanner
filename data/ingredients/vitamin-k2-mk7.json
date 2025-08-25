@@ -1,0 +1,10 @@
+{
+"slug": "vitamin-k2-mk7",
+"title": "Vitamin K2 (MK‑7)",
+"summary": "Often paired with vitamin D; interacts with anticoagulants.",
+"timing": ["With food"],
+"goals": { "longevity": { "evidence": "C", "typical_dose_mcg": [75, 200] } },
+"contraindications": ["Warfarin or similar anticoagulants: discuss with clinician"],
+"interactions": ["Anticoagulants"],
+"affiliates": { "eu": [], "us": [] }
+}
