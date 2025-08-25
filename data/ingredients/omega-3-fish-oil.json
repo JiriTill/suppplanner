@@ -1,1 +1,12 @@
-
+{
+"slug": "omega-3-fish-oil",
+"title": "Omega‑3 Fish Oil",
+"summary": "Commonly used source of EPA/DHA.",
+"timing": ["With meals to reduce fishy burps"],
+"goals": {
+"longevity": { "evidence": "B", "typical_dose_mg": [500, 2000], "note": "mg combined EPA+DHA" }
+},
+"contraindications": ["Bleeding disorders or anticoagulants: discuss with clinician"],
+"interactions": ["May have additive effects with anticoagulants"],
+"affiliates": { "eu": [], "us": [] }
+}
