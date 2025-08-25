@@ -1,0 +1,10 @@
+{
+"slug": "b-complex",
+"title": "B‑Complex",
+"summary": "Mixed B vitamins; doses vary by product.",
+"timing": ["With breakfast"],
+"goals": { "energy": { "evidence": "C", "typical_dose_mg": [1, 100], "note": "varies per vitamin" } },
+"contraindications": [],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
