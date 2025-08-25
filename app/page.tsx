@@ -9,6 +9,7 @@ import FAQAccordion from '@/components/FAQAccordion';
 import HeroCTAs from '@/components/HeroCTAs';
 import StickyCTA from '@/components/StickyCTA';
 import ComparisonTable from '@/components/ComparisonTable';
+import Testimonials from '@/components/Testimonials';
 
 export default async function HomePage() {
   const posts = await getLatestPosts(3);
@@ -89,6 +90,10 @@ export default async function HomePage() {
       <div className="mt-10">
         <SocialProof />
       </div>
+
+      <section className="mt-8">
+        <Testimonials />
+      </section>
 
       {/* HOW IT WORKS – numbered cards */}
       <section className="mt-12">
