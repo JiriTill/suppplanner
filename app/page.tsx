@@ -7,75 +7,96 @@ export default async function HomePage() {
   const posts = await getLatestPosts(3);
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
+      {/* HERO */}
       <section className="grid md:grid-cols-2 gap-8 items-center">
         <div>
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            Build a simple, safer supplement plan
+            Build a simple, clear supplement plan
           </h1>
           <p className="mt-3 text-gray-700">
-            Use our dataset-aware planner to draft a weekly schedule, then sanity-check your stack.
-            Educational only — not medical advice.
+            Two tools: create a weekly SuppPlan or sanity-check your current stack.
           </p>
+
+          {/* BIG CTAs */}
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/planner" className="btn-primary">Open Planner</Link>
-            <Link href="/check" className="btn-outline">Check my stack</Link>
-            <Link href="/library" className="btn-outline">Browse Library</Link>
+            <Link href="/planner" className="btn btn-primary btn-lg gap-2">
+              {/* clipboard icon */}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M9 4h6a2 2 0 0 1 2 2v1h-2.5a1.5 1.5 0 1 0-3 0H9V6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.5"/>
+                <rect x="5" y="6" width="14" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M8 11h8M8 15h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Create new SuppPlan
+            </Link>
+
+            <Link href="/check" className="btn btn-outline btn-lg gap-2">
+              {/* magnifying glass icon */}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Check my stack
+            </Link>
+          </div>
+
+          {/* HOW IT WORKS */}
+          <div className="mt-8 space-y-3">
+            <h2 className="text-lg font-semibold">How it works</h2>
+            <ul className="text-gray-800 list-disc pl-5 space-y-1">
+              <li>
+                <strong>Planner</strong> suggests a weekly schedule using only items from our Library.
+                Start here: <Link href="/planner" className="underline">Create a SuppPlan</Link>.
+              </li>
+              <li>
+                <strong>Check</strong> reviews your existing stack for potential overlaps or timing clashes.
+                Try it: <Link href="/check" className="underline">Check my stack</Link>.
+              </li>
+              <li>
+                Browse background info in the <Link href="/library" className="underline">Library</Link>.
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="card p-4"><AdSlot /></div>
+
+        {/* Comic image now in the hero, replacing the ad placeholder */}
+        <HeroComic />
       </section>
 
-      <div className="mt-8"><HeroComic /></div>
-
-      <section className="mt-16 prose max-w-none">
-        <h2>What is a supplement plan?</h2>
-        <p>
-          A supplement plan is a simple schedule for if/when to take specific supplements over a typical week.
-          Our goal is to help you draft a plan that is easy to follow, avoids obvious duplications, and stays
-          mindful of typical upper intake limits (ULs). The app does not diagnose or treat conditions. It’s
-          educational only and should not replace care from a qualified clinician.
-        </p>
-        <h3>How SuppPlanner works</h3>
-        <ul>
-          <li><strong>Planner:</strong> pick your goals and context; we only draw from our ingredient library and show typical timing/dosing ranges for educational use.</li>
-          <li><strong>Check:</strong> paste your current stack to flag potential issues like overlaps or timing conflicts.</li>
-          <li><strong>Library:</strong> short, plain-language pages on common ingredients — timing, typical ranges, and considerations.</li>
-        </ul>
-        <h3>Safety and limitations</h3>
-        <p>
-          Supplements can interact with medications and medical conditions. When pregnant, breastfeeding, managing
-          a condition, or taking prescription medicines, discuss changes with a clinician. Information here is general
-          and may not apply to you.
-        </p>
+      {/* AD SLOT under the buttons/how-it-works */}
+      <section className="mt-12">
+        <div className="card p-4">
+          <AdSlot height={250} />
+        </div>
       </section>
 
+      {/* FAQ */}
       <section className="mt-16">
         <h2 className="text-xl font-semibold">Frequently asked questions</h2>
         <div className="mt-4 grid md:grid-cols-2 gap-4">
           <div className="card p-4">
-            <div className="font-medium">Is this medical advice?</div>
-            <p className="text-gray-700 mt-1">No. This tool is educational only and not a substitute for professional advice.</p>
-          </div>
-          <div className="card p-4">
-            <div className="font-medium">Where do the ingredient facts come from?</div>
+            <div className="font-medium">What does SuppPlanner do?</div>
             <p className="text-gray-700 mt-1">
-              From our curated dataset of common supplements with timing notes and typical ranges. We aim to keep entries short,
-              clear, and conservative.
+              It helps you draft a simple weekly plan and review an existing stack with clear, conservative tips.
             </p>
           </div>
           <div className="card p-4">
-            <div className="font-medium">Will this replace my clinician?</div>
+            <div className="font-medium">Where does the info come from?</div>
             <p className="text-gray-700 mt-1">
-              No. Always consider your personal situation and medications, and involve your clinician when needed.
+              Our dataset of common ingredients with timing notes and typical ranges. We keep entries short and practical.
             </p>
           </div>
           <div className="card p-4">
-            <div className="font-medium">Do I need to sign up?</div>
-            <p className="text-gray-700 mt-1">No account required. You can export a calendar file to use privately.</p>
+            <div className="font-medium">Do I need an account?</div>
+            <p className="text-gray-700 mt-1">No. Use the tools immediately and export to your calendar if you like.</p>
+          </div>
+          <div className="card p-4">
+            <div className="font-medium">Can I share my plan?</div>
+            <p className="text-gray-700 mt-1">Yes — export to .ics or copy the schedule text to share.</p>
           </div>
         </div>
       </section>
 
+      {/* Latest blog posts */}
       <section className="mt-16">
         <h2 className="text-xl font-semibold">Latest from the blog</h2>
         <div className="mt-4 grid md:grid-cols-3 gap-4">
@@ -95,4 +116,3 @@ export default async function HomePage() {
     </main>
   );
 }
-
