@@ -5,8 +5,93 @@ import { getLatestPosts } from '@/lib/blog';
 
 export default async function HomePage() {
   const posts = await getLatestPosts(3);
+
+  // --- JSON-LD structured data (FAQ, HowTo, Services) ---
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does SuppPlanner do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It helps you draft a simple weekly plan and review an existing stack with clear, conservative tips — for free."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is SuppPlanner free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The Planner, Checker, and Library are free to use."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where does the info come from?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "From our curated dataset of common ingredients with timing notes and typical ranges. Entries are kept short and practical."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I share my plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — you can export to a calendar file (.ics) or copy the schedule text."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to create a simple supplement plan",
+        "description": "Use SuppPlanner’s free tools to generate a weekly supplement plan and review your current stack.",
+        "step": [
+          { "@type": "HowToStep", "name": "Open Planner", "text": "Go to the Planner to start a new SuppPlan." },
+          { "@type": "HowToStep", "name": "Pick goals", "text": "Choose your primary goals to keep the plan focused." },
+          { "@type": "HowToStep", "name": "Review the schedule", "text": "We propose a simple weekly schedule using our Library." },
+          { "@type": "HowToStep", "name": "Check your stack", "text": "Use the Checker to surface overlaps or timing clashes." },
+          { "@type": "HowToStep", "name": "Export", "text": "Download an .ics calendar file or copy the plan text." }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "SuppPlanner Services",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "name": "Supplement Planner",
+            "serviceType": "Supplement planning",
+            "provider": { "@type": "Organization", "name": "SuppPlanner" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "Service",
+            "name": "Stack Checker",
+            "serviceType": "Supplement stack checker",
+            "provider": { "@type": "Organization", "name": "SuppPlanner" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "areaServed": "Worldwide"
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
+      {/* Structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* HERO */}
       <section className="grid md:grid-cols-2 gap-8 items-center">
         <div>
@@ -17,11 +102,14 @@ export default async function HomePage() {
             Two tools: create a weekly SuppPlan or sanity-check your current stack — totally free.
           </p>
 
-          {/* BIG CTAs */}
+          {/* BIG CTAs (accessible labels + stronger hover/focus) */}
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/planner" className="btn btn-primary btn-lg gap-2">
-              {/* clipboard icon */}
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <Link
+              href="/planner"
+              aria-label="Create new SuppPlan – open the Planner"
+              className="btn btn-primary btn-lg gap-2 btn-raise"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M9 4h6a2 2 0 0 1 2 2v1h-2.5a1.5 1.5 0 1 0-3 0H9V6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.5"/>
                 <rect x="5" y="6" width="14" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M8 11h8M8 15h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -29,9 +117,12 @@ export default async function HomePage() {
               Create new SuppPlan
             </Link>
 
-            <Link href="/check" className="btn btn-outline btn-lg gap-2">
-              {/* magnifying glass icon */}
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <Link
+              href="/check"
+              aria-label="Check my stack – open the Checker"
+              className="btn btn-outline btn-lg gap-2 btn-raise"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -39,13 +130,13 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* HOW IT WORKS (free) */}
+          {/* HOW IT WORKS (free) with consistent link text */}
           <div className="mt-8 space-y-3">
             <h2 className="text-lg font-semibold">How it works (free)</h2>
             <ul className="text-gray-800 list-disc pl-5 space-y-1">
               <li>
                 <strong>Planner</strong> suggests a weekly schedule using only items from our Library.
-                Start here: <Link href="/planner" className="underline">Create a SuppPlan</Link>.
+                Start here: <Link href="/planner" className="underline">Create new SuppPlan</Link>.
               </li>
               <li>
                 <strong>Check</strong> reviews your existing stack for potential overlaps or timing clashes.
@@ -58,18 +149,11 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Comic image now in the hero */}
+        {/* Comic image (descriptive alt is in the component) */}
         <HeroComic />
       </section>
 
-      {/* AD SLOT under the buttons/how-it-works */}
-      <section className="mt-12">
-        <div className="card p-4">
-          <AdSlot height={250} />
-        </div>
-      </section>
-
-      {/* RICH SEO TEXT */}
+      {/* RICH SEO TEXT (kept above the fold content clean; still high on page) */}
       <section className="mt-12 prose max-w-none">
         <h2>Free supplement planner, stack checker, and ingredient library</h2>
         <p>
@@ -91,30 +175,39 @@ export default async function HomePage() {
         </ul>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ (use semantic headings for hierarchy) */}
       <section className="mt-16">
         <h2 className="text-xl font-semibold">Frequently asked questions</h2>
         <div className="mt-4 grid md:grid-cols-2 gap-4">
-          <div className="card p-4">
-            <div className="font-medium">What does SuppPlanner do?</div>
+          <article className="card p-4">
+            <h3 className="font-medium">What does SuppPlanner do?</h3>
             <p className="text-gray-700 mt-1">
               It helps you draft a simple weekly plan and review an existing stack with clear, conservative tips — for free.
             </p>
-          </div>
-          <div className="card p-4">
-            <div className="font-medium">Where does the info come from?</div>
+          </article>
+          <article className="card p-4">
+            <h3 className="font-medium">Is SuppPlanner free?</h3>
+            <p className="text-gray-700 mt-1">
+              Yes. The Planner, Checker, and Library are free to use.
+            </p>
+          </article>
+          <article className="card p-4">
+            <h3 className="font-medium">Where does the info come from?</h3>
             <p className="text-gray-700 mt-1">
               Our dataset of common ingredients with timing notes and typical ranges. We keep entries short and practical.
             </p>
-          </div>
-          <div className="card p-4">
-            <div className="font-medium">Do I need an account?</div>
-            <p className="text-gray-700 mt-1">No account required — just use the tools.</p>
-          </div>
-          <div className="card p-4">
-            <div className="font-medium">Can I share my plan?</div>
+          </article>
+          <article className="card p-4">
+            <h3 className="font-medium">Can I share my plan?</h3>
             <p className="text-gray-700 mt-1">Yes — export to .ics or copy the schedule text to share.</p>
-          </div>
+          </article>
+        </div>
+      </section>
+
+      {/* Move Ad lower to avoid disrupting the tool flow (per feedback) */}
+      <section className="mt-12">
+        <div className="card p-4">
+          <AdSlot height={250} />
         </div>
       </section>
 
