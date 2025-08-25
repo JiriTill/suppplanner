@@ -1,0 +1,10 @@
+{
+"slug": "coq10",
+"title": "Coenzyme Q10 (CoQ10)",
+"summary": "Ubiquinone/ubiquinol forms; sometimes used for energy and statin‑associated symptoms.",
+"timing": ["With fat‑containing meal"],
+"goals": { "energy": { "evidence": "C", "typical_dose_mg": [100, 200] } },
+"contraindications": [],
+"interactions": ["May interact with anticoagulants"],
+"affiliates": { "eu": [], "us": [] }
+}
