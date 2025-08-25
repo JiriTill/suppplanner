@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import SEO from '@/components/SEO';
+import ToolPing from '@/components/ToolPing';
 
 
 export default function CheckPage() {
@@ -30,6 +31,7 @@ finally { setLoading(false); }
 return (
 <div className="space-y-4">
 <SEO title="Check My Supplement Stack" description="Paste your current supplements and get a safety-oriented review with potential overlaps and suggestions." />
+  <ToolPing tool="checker" />
 <h1 className="text-3xl font-bold text-primary">Check My Current Stack</h1>
 <form onSubmit={handleCheck} className="bg-white p-4 rounded-xl shadow space-y-3">
 <label className="block">
