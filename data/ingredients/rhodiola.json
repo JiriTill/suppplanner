@@ -1,0 +1,10 @@
+{
+"slug": "rhodiola",
+"title": "Rhodiola rosea",
+"summary": "Adaptogen sometimes used for fatigue and stress; products vary.",
+"timing": ["Morning"],
+"goals": { "energy": { "evidence": "C", "typical_dose_mg": [200, 400] }, "focus": { "evidence": "C", "typical_dose_mg": [200, 400] } },
+"contraindications": [],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
