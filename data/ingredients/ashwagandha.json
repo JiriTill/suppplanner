@@ -1,1 +1,13 @@
-
+{
+"slug": "ashwagandha",
+"title": "Ashwagandha (Withania somnifera)",
+"summary": "Often used for stress and sleep support; quality varies.",
+"timing": ["Evening or with meals"],
+"goals": {
+"sleep": { "evidence": "B", "typical_dose_mg": [300, 600] },
+"focus": { "evidence": "C", "typical_dose_mg": [300, 600] }
+},
+"contraindications": ["Pregnancy: avoid unless clinician advises", "Certain thyroid conditions: consult clinician"],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
