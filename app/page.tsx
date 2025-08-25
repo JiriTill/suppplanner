@@ -57,11 +57,6 @@ export default async function HomePage() {
     ]
   };
 
-  // CTA click ping (adds to combined count) – fire-and-forget
-  async function pingUse() {
-    try { await fetch('/api/metrics/use', { method: 'POST', keepalive: true }); } catch {}
-  }
-
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -76,33 +71,15 @@ export default async function HomePage() {
             Create a personalized schedule and check your stack for overlaps — free and fast.
           </p>
 
+          {/* Badge + primary/secondary CTAs (client component handles clicks) */}
           <HeroCTAs />
-          
-              {/* clipboard icon */}
-              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
-                <path d="M9 4h6a2 2 0 0 1 2 2v1h-2.5a1.5 1.5 0 1 0-3 0H9V6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.5"/>
-                <rect x="5" y="6" width="14" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M8 11h8M8 15h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              Create new SuppPlan
-            </Link>
-            <Link
-              href="/check"
-              aria-label="Check my stack – open the Checker"
-              prefetch={false}
-              onClick={pingUse}
-              className="text-primary underline underline-offset-4"
-            >
-              Check my stack →
-            </Link>
-          </div>
 
           <div className="mt-6">
             <TrustBadges />
           </div>
         </div>
 
-        {/* Keep the comic for now (we can swap later) */}
+        {/* Keep the comic for now */}
         <HeroComic />
       </section>
 
@@ -132,13 +109,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Tool Previews (sample output UI) */}
+      {/* Tool Previews */}
       <section className="mt-12">
         <h2 className="text-xl font-semibold">See what you get</h2>
         <ToolPreview />
       </section>
 
-      {/* Rich SEO text stays */}
+      {/* Rich SEO text */}
       <section className="mt-12 prose max-w-none">
         <h2>Free supplement planner, stack checker, and ingredient library</h2>
         <p>
@@ -154,7 +131,7 @@ export default async function HomePage() {
         </ul>
       </section>
 
-      {/* FAQ (accordion) */}
+      {/* FAQ */}
       <section className="mt-16">
         <h2 className="text-xl font-semibold">Frequently asked questions</h2>
         <FAQAccordion />
