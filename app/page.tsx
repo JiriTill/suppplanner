@@ -8,6 +8,7 @@ import ToolPreview from '@/components/ToolPreview';
 import FAQAccordion from '@/components/FAQAccordion';
 import HeroCTAs from '@/components/HeroCTAs';
 import StickyCTA from '@/components/StickyCTA';
+import ComparisonTable from '@/components/ComparisonTable';
 
 export default async function HomePage() {
   const posts = await getLatestPosts(3);
@@ -130,6 +131,11 @@ export default async function HomePage() {
           <li><Link href="/check">Stack Checker</Link> — surface potential overlaps or timing conflicts.</li>
           <li><Link href="/library">Supplement Library</Link> — quick references for common ingredients.</li>
         </ul>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-xl font-semibold">How we compare</h2>
+        <ComparisonTable />
       </section>
 
       {/* FAQ */}
