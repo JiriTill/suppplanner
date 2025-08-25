@@ -14,7 +14,7 @@ export default async function HomePage() {
             Build a simple, clear supplement plan
           </h1>
           <p className="mt-3 text-gray-700">
-            Two tools: create a weekly SuppPlan or sanity-check your current stack.
+            Two tools: create a weekly SuppPlan or sanity-check your current stack — totally free.
           </p>
 
           {/* BIG CTAs */}
@@ -39,9 +39,9 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* HOW IT WORKS */}
+          {/* HOW IT WORKS (free) */}
           <div className="mt-8 space-y-3">
-            <h2 className="text-lg font-semibold">How it works</h2>
+            <h2 className="text-lg font-semibold">How it works (free)</h2>
             <ul className="text-gray-800 list-disc pl-5 space-y-1">
               <li>
                 <strong>Planner</strong> suggests a weekly schedule using only items from our Library.
@@ -52,13 +52,13 @@ export default async function HomePage() {
                 Try it: <Link href="/check" className="underline">Check my stack</Link>.
               </li>
               <li>
-                Browse background info in the <Link href="/library" className="underline">Library</Link>.
+                Browse background info in the <Link href="/library" className="underline">Library</Link>. It’s all free to use.
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Comic image now in the hero, replacing the ad placeholder */}
+        {/* Comic image now in the hero */}
         <HeroComic />
       </section>
 
@@ -69,6 +69,28 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* RICH SEO TEXT */}
+      <section className="mt-12 prose max-w-none">
+        <h2>Free supplement planner, stack checker, and ingredient library</h2>
+        <p>
+          SuppPlanner is a free <strong>supplement planner</strong> and <strong>stack checker</strong> designed to help you
+          create a clear, weekly <strong>supplement plan</strong> and review your current stack for overlaps. The Planner
+          only draws from our <strong>supplement library</strong> so recommendations stay consistent with our data on timing,
+          typical ranges, and conservative heuristics around <strong>upper intake limits (ULs)</strong>.
+        </p>
+        <p>
+          To get started, open the <Link href="/planner">Supplement Planner</Link> to generate a weekly schedule,
+          use the <Link href="/check">Stack Checker</Link> to review what you’re already taking, and read short entries in the
+          <Link href="/library">Ingredient Library</Link> for plain-language notes on timing, dose ranges, and considerations.
+          Keep things simple, avoid unnecessary duplication, and focus on a plan you can actually follow.
+        </p>
+        <ul>
+          <li><Link href="/planner">Supplement Planner</Link> — build a weekly schedule from curated ingredients.</li>
+          <li><Link href="/check">Stack Checker</Link> — surface potential overlaps or timing conflicts.</li>
+          <li><Link href="/library">Supplement Library</Link> — quick references for common ingredients.</li>
+        </ul>
+      </section>
+
       {/* FAQ */}
       <section className="mt-16">
         <h2 className="text-xl font-semibold">Frequently asked questions</h2>
@@ -76,7 +98,7 @@ export default async function HomePage() {
           <div className="card p-4">
             <div className="font-medium">What does SuppPlanner do?</div>
             <p className="text-gray-700 mt-1">
-              It helps you draft a simple weekly plan and review an existing stack with clear, conservative tips.
+              It helps you draft a simple weekly plan and review an existing stack with clear, conservative tips — for free.
             </p>
           </div>
           <div className="card p-4">
@@ -87,7 +109,7 @@ export default async function HomePage() {
           </div>
           <div className="card p-4">
             <div className="font-medium">Do I need an account?</div>
-            <p className="text-gray-700 mt-1">No. Use the tools immediately and export to your calendar if you like.</p>
+            <p className="text-gray-700 mt-1">No account required — just use the tools.</p>
           </div>
           <div className="card p-4">
             <div className="font-medium">Can I share my plan?</div>
