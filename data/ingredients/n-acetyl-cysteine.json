@@ -1,0 +1,10 @@
+{
+"slug": "n-acetyl-cysteine",
+"title": "N‑Acetyl‑Cysteine (NAC)",
+"summary": "Precursor to glutathione; sometimes used for respiratory support.",
+"timing": ["With or without food"],
+"goals": { "immunity": { "evidence": "C", "typical_dose_mg": [600, 1200] } },
+"contraindications": ["Asthma: discuss with clinician"],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
