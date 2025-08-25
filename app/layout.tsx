@@ -8,7 +8,6 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   title: 'SuppPlanner – Simple, safer supplement plans',
   description: 'Free supplement planner & stack checker. Create personalized weekly schedules, check for overlaps, avoid timing mistakes. Science-based, no signup required.',
-themeColor: '#0f7a4e',
 icons: { icon: '/favicon.ico' },
 openGraph: {
 title: 'SuppPlanner',
@@ -19,6 +18,9 @@ type: 'website',
 },
 };
 
+export const viewport = {
+  themeColor: '#0f7a4e',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 return (
