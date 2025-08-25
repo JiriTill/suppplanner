@@ -6,6 +6,7 @@ import SocialProof from '@/components/SocialProof';
 import TrustBadges from '@/components/TrustBadges';
 import ToolPreview from '@/components/ToolPreview';
 import FAQAccordion from '@/components/FAQAccordion';
+import HeroCTAs from '@/components/HeroCTAs';
 
 export default async function HomePage() {
   const posts = await getLatestPosts(3);
@@ -75,18 +76,8 @@ export default async function HomePage() {
             Create a personalized schedule and check your stack for overlaps — free and fast.
           </p>
 
-          {/* Badge + CTAs */}
-          <div className="mt-4 flex items-center gap-3">
-            <span className="badge">Free — no signup required</span>
-          </div>
-          <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-3">
-            <Link
-              href="/planner"
-              aria-label="Create new SuppPlan – open the Planner"
-              prefetch={false}
-              onClick={pingUse}
-              className="btn btn-primary btn-xl gap-2 btn-raise"
-            >
+          <HeroCTAs />
+          
               {/* clipboard icon */}
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
                 <path d="M9 4h6a2 2 0 0 1 2 2v1h-2.5a1.5 1.5 0 1 0-3 0H9V6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.5"/>
