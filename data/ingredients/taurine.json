@@ -1,0 +1,10 @@
+{
+"slug": "taurine",
+"title": "Taurine",
+"summary": "Amino sulfonic acid used for energy and recovery; generally well‑tolerated.",
+"timing": ["Anytime", "Not too close to bedtime for some"],
+"goals": { "energy": { "evidence": "C", "typical_dose_mg": [500, 2000] }, "muscle-recovery": { "evidence": "C", "typical_dose_mg": [500, 2000] } },
+"contraindications": [],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
