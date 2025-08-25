@@ -1,10 +1,11 @@
 {
-"slug": "glycine",
-"title": "Glycine",
-"summary": "Amino acid sometimes used for sleep quality.",
-"timing": ["30–60 minutes before bed"],
-"goals": { "sleep": { "evidence": "C", "typical_dose_mg": [2000, 3000] } },
-"contraindications": [],
-"interactions": [],
+"slug": "magnesium-malate",
+"title": "Magnesium (malate)",
+"summary": "Another common magnesium form; sometimes preferred for daytime use.",
+"timing": ["With meals", "Split dosing"],
+"goals": { "energy": { "evidence": "C", "typical_dose_mg": [200, 400] } },
+"ul": { "eu_mg_per_day": 250, "us_mg_per_day": 350 },
+"contraindications": ["Kidney impairment: consult clinician"],
+"interactions": ["Separate from certain antibiotics by ≥2 hours"],
 "affiliates": { "eu": [], "us": [] }
 }
