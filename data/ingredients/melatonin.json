@@ -1,1 +1,12 @@
-
+{
+"slug": "melatonin",
+"title": "Melatonin",
+"summary": "Commonly used for sleep onset; use conservatively.",
+"timing": ["30–60 minutes before bedtime"],
+"goals": {
+"sleep": { "evidence": "B", "typical_dose_mg": [0.3, 3] }
+},
+"contraindications": ["Pregnancy: discuss with clinician"],
+"interactions": ["May interact with certain sedatives"],
+"affiliates": { "eu": [], "us": [] }
+}
