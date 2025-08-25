@@ -1,1 +1,24 @@
-
+{
+"slug": "magnesium-citrate",
+"title": "Magnesium (citrate)",
+"summary": "Common form of magnesium; may be more laxative at higher doses. Elemental magnesium shown for dosing.",
+"timing": [
+"With meals",
+"Consider evening if laxative effects occur",
+"Split doses to improve tolerance"
+],
+"goals": {
+"muscle-recovery": { "evidence": "B", "typical_dose_mg": [200, 400] },
+"sleep": { "evidence": "C", "typical_dose_mg": [200, 400] }
+},
+"ul": { "eu_mg_per_day": 250, "us_mg_per_day": 350 },
+"contraindications": [
+"Kidney impairment: consult a clinician",
+"Severe diarrhea: consider alternative forms"
+],
+"interactions": [
+"Separate from tetracycline/quinolone antibiotics by ≥2 hours",
+"May reduce absorption of some minerals if taken together (iron, calcium)"
+],
+"affiliates": { "eu": [], "us": [] }
+}
