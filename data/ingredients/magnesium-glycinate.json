@@ -1,1 +1,14 @@
-
+{
+"slug": "magnesium-glycinate",
+"title": "Magnesium (glycinate)",
+"summary": "Widely used form of magnesium; often preferred for tolerance. Elemental dose shown.",
+"timing": ["Evening with food", "Split doses to reduce GI discomfort"],
+"goals": {
+"sleep": { "evidence": "B", "typical_dose_mg": [200, 400] },
+"muscle-recovery": { "evidence": "B", "typical_dose_mg": [200, 400] }
+},
+"ul": { "eu_mg_per_day": 250, "us_mg_per_day": 350 },
+"contraindications": ["Kidney impairment: consult a clinician"],
+"interactions": ["Separate from tetracycline/quinolone antibiotics by ≥2 hours"],
+"affiliates": { "eu": [], "us": [] }
+}
