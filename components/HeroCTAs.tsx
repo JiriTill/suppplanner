@@ -1,13 +1,18 @@
 'use client';
 import Link from 'next/link';
 
+function track(name: string) {
+  try { (window as any)?.plausible?.(name); } catch {}
+}
+
 async function pingUse() {
-  try {
-    await fetch('/api/metrics/use', { method: 'POST', keepalive: true });
-  } catch {}
+  try { await fetch('/api/metrics/use', { method: 'POST', keepalive: true }); } catch {}
 }
 
 export default function HeroCTAs() {
+  const plannerClick = async () => { track('hero_cta_planner'); await pingUse(); };
+  const checkerClick = async () => { track('hero_cta_checker'); await pingUse(); };
+
   return (
     <>
       <div className="mt-4 flex items-center gap-3">
@@ -18,7 +23,7 @@ export default function HeroCTAs() {
           href="/planner"
           aria-label="Create new SuppPlan – open the Planner"
           prefetch={false}
-          onClick={pingUse}
+          onClick={plannerClick}
           className="btn btn-primary btn-xl gap-2 btn-raise"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none">
@@ -33,7 +38,7 @@ export default function HeroCTAs() {
           href="/check"
           aria-label="Check my stack – open the Checker"
           prefetch={false}
-          onClick={pingUse}
+          onClick={checkerClick}
           className="text-primary underline underline-offset-4"
         >
           Check my stack →
@@ -42,3 +47,4 @@ export default function HeroCTAs() {
     </>
   );
 }
+
