@@ -17,7 +17,10 @@ export default function StickyCTA() {
 
   if (!show) return null;
 
-  const handleClick = async () => { track('sticky_cta_click'); await pingUse(); };
+const handleClick = async () => {
+  try { (window as any)?.plausible?.('sticky_cta_click'); } catch {}
+  try { await fetch('/api/metrics/use?tool=planner', { method: 'POST', keepalive: true }); } catch {}
+};
 
   return (
     <div className="fixed inset-x-0 bottom-3 z-50 flex justify-center sm:hidden">
