@@ -1,0 +1,10 @@
+{
+"slug": "berberine",
+"title": "Berberine",
+"summary": "Plant alkaloid; often used for glucose and lipids. Can cause GI upset.",
+"timing": ["With meals", "Split dosing"],
+"goals": { "longevity": { "evidence": "C", "typical_dose_mg": [500, 1500] } },
+"contraindications": ["Pregnancy/breastfeeding: avoid without clinician guidance"],
+"interactions": ["Multiple possible drug interactions"],
+"affiliates": { "eu": [], "us": [] }
+}
