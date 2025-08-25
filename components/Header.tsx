@@ -14,6 +14,7 @@ export default function Header() {
           <Link href="/check" className="hover:underline">Check</Link>
           <Link href="/library" className="hover:underline">Library</Link>
           <Link href="/blog" className="hover:underline">Blog</Link>
+          <Link href="/about" className="hover:underline">About</Link>
         </nav>
       </div>
     </header>
