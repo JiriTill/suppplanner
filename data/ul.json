@@ -1,1 +1,6 @@
-
+{
+"vitamin-d3": { "iu_per_day": 4000 },
+"vitamin-c": { "us_mg_per_day": 2000, "eu_mg_per_day": 1000 },
+"magnesium": { "us_mg_per_day": 350, "eu_mg_per_day": 250 },
+"zinc": { "us_mg_per_day": 40, "eu_mg_per_day": 25 }
+}
