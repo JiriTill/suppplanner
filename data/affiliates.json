@@ -1,1 +1,10 @@
-
+{
+"vitamin-d3": {
+"eu": [ { "name": "D3 2000 IU – EU Brand", "link": "https://example.com/eu/d3" } ],
+"us": [ { "name": "D3 2000 IU – US Brand", "link": "https://example.com/us/d3" } ]
+},
+"magnesium-glycinate": {
+"eu": [ { "name": "Mg Glycinate 200 mg – EU", "link": "https://example.com/eu/mg-gly" } ],
+"us": [ { "name": "Mg Glycinate 200 mg – US", "link": "https://example.com/us/mg-gly" } ]
+}
+}
