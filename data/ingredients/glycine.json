@@ -1,0 +1,10 @@
+{
+"slug": "glycine",
+"title": "Glycine",
+"summary": "Amino acid sometimes used for sleep quality.",
+"timing": ["30–60 minutes before bed"],
+"goals": { "sleep": { "evidence": "C", "typical_dose_mg": [2000, 3000] } },
+"contraindications": [],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
