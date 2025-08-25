@@ -1,1 +1,13 @@
-
+{
+"slug": "l-theanine",
+"title": "L‑Theanine",
+"summary": "Often paired with caffeine for smoother focus.",
+"timing": ["With morning caffeine or as needed"],
+"goals": {
+"focus": { "evidence": "B", "typical_dose_mg": [100, 200] },
+"sleep": { "evidence": "C", "typical_dose_mg": [100, 200] }
+},
+"contraindications": [],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
