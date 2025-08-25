@@ -7,6 +7,7 @@ import TrustBadges from '@/components/TrustBadges';
 import ToolPreview from '@/components/ToolPreview';
 import FAQAccordion from '@/components/FAQAccordion';
 import HeroCTAs from '@/components/HeroCTAs';
+import StickyCTA from '@/components/StickyCTA';
 
 export default async function HomePage() {
   const posts = await getLatestPosts(3);
@@ -166,6 +167,7 @@ export default async function HomePage() {
       <section className="mt-12 text-xs text-gray-600">
         <p><strong>Disclaimer:</strong> Educational use only. Not medical advice. Always consider your personal situation and medications with a qualified clinician.</p>
       </section>
+      <StickyCTA />
     </main>
   );
 }
