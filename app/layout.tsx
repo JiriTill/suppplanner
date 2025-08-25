@@ -6,8 +6,8 @@ import Script from 'next/script';
 
 
 export const metadata: Metadata = {
-title: 'SuppPlanner – Simple, safer supplement plans',
-description: 'Dataset‑aware supplement planner, stack checker, and ingredient library. Educational only — not medical advice.',
+  title: 'SuppPlanner – Simple, safer supplement plans',
+  description: 'Free supplement planner & stack checker. Create personalized weekly schedules, check for overlaps, avoid timing mistakes. Science-based, no signup required.',
 themeColor: '#0f7a4e',
 icons: { icon: '/favicon.ico' },
 openGraph: {
