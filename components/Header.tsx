@@ -1,30 +1,16 @@
-'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-
-const LinkItem = ({ href, label }: { href: string; label: string }) => {
-const pathname = usePathname();
-const active = pathname === href;
-return (
-<Link href={href} className={`px-3 py-2 rounded-lg hover:bg-gray-100 ${active ? 'font-bold text-primary' : 'text-gray-700'}`}>
-{label}
-</Link>
-);
-};
 
 
 export default function Header() {
 return (
-<header className="bg-white border-b">
-<div className="container h-16 flex items-center justify-between">
-<Link href="/" className="font-extrabold text-xl text-primary">SuppPlan</Link>
-<nav className="flex items-center gap-2">
-<LinkItem href="/planner" label="Planner" />
-<LinkItem href="/check" label="Check" />
-<LinkItem href="/library" label="Library" />
-<LinkItem href="/blog" label="Blog" />
-<LinkItem href="/contact" label="Contact" />
+<header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
+<div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+<Link href="/" className="font-semibold text-lg tracking-tight">SuppPlanner</Link>
+<nav className="flex items-center gap-6 text-sm">
+<Link href="/planner" className="hover:underline">Planner</Link>
+<Link href="/check" className="hover:underline">Check</Link>
+<Link href="/library" className="hover:underline">Library</Link>
+<Link href="/blog" className="hover:underline">Blog</Link>
 </nav>
 </div>
 </header>
