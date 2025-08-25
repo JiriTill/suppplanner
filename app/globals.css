@@ -5,10 +5,16 @@
 :root { color-scheme: light; }
 body { @apply bg-soft text-ink; }
 
-.btn { @apply inline-flex items-center justify-center px-4 py-2 rounded-xl font-medium; }
-.btn-primary { @apply btn bg-primary text-white hover:opacity-90 shadow; }
-.btn-outline { @apply btn border; }
-.card { @apply rounded-2xl border bg-white shadow-sm; }
-
+/* Buttons */
+.btn { @apply inline-flex items-center justify-center px-4 py-2 rounded-xl font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40; }
+.btn-primary { @apply btn bg-primary text-white shadow hover:opacity-100; }
+.btn-outline { @apply btn border hover:bg-white/60; }
 .btn-lg { @apply px-6 py-3 text-base md:text-lg; }
+.btn-xl { @apply px-7 py-3.5 text-lg md:text-xl; }
 .btn-raise { @apply hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0; }
+
+/* Badge */
+.badge { @apply inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 text-primary px-3 py-1 text-xs; }
+
+/* Cards */
+.card { @apply rounded-2xl border bg-white shadow-sm; }
