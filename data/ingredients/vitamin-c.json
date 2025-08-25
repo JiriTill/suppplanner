@@ -1,1 +1,13 @@
-
+{
+"slug": "vitamin-c",
+"title": "Vitamin C",
+"summary": "Widely used antioxidant vitamin; higher doses may cause GI upset in some.",
+"timing": ["With or without food", "Split dosing may improve tolerance"],
+"goals": {
+"immunity": { "evidence": "C", "typical_dose_mg": [250, 1000] }
+},
+"ul": { "us_mg_per_day": 2000, "eu_mg_per_day": 1000 },
+"contraindications": ["History of kidney stones: discuss with clinician"],
+"interactions": [],
+"affiliates": { "eu": [], "us": [] }
+}
