@@ -1,1 +1,8 @@
-
+[
+{ "slug": "energy", "name": "Energy" },
+{ "slug": "focus", "name": "Focus" },
+{ "slug": "sleep", "name": "Sleep" },
+{ "slug": "longevity", "name": "Longevity" },
+{ "slug": "muscle-recovery", "name": "Muscle/Recovery" },
+{ "slug": "immunity", "name": "Immunity" }
+]
