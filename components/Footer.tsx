@@ -5,9 +5,9 @@ import KofiButton from '@/components/KofiButton';
 export default function Footer() {
   return (
     <footer className="mt-16 border-t bg-[#eaf6ef]">
-      {/* 12-col grid so the right column can be exactly ~1/4 width */}
+
       <div className="mx-auto max-w-5xl px-4 py-10 grid md:grid-cols-12 gap-6 text-sm">
-        {/* Left: logo + brand text stacked (clickable) — ~4/12 */}
+        {/* Left: logo + brand */}
         <div className="md:col-span-4">
           <Link href="/" className="flex items-start gap-3 group">
             <Image src="/logo192.png" alt="SuppPlanner logo" width={44} height={44} />
@@ -18,8 +18,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* Middle: Ko-Fi box — ~5/12, centered */}
-        <div className="md:col-span-5 md:justify-self-center md:max-w-md w-full">
+        <div className="md:col-span-4 md:col-start-5 w-full md:max-w-md justify-self-center">
           <div className="card p-4 text-center">
             <div className="font-medium">Support our work so it can stay free.</div>
             <div className="mt-3 flex justify-center">
@@ -28,8 +27,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Right: compact links — ~3/12 (≈ 1/4), aligned to the right */}
-        <div className="md:col-span-3 md:justify-self-end w-full max-w-[240px]">
+        <div className="md:col-span-3 md:col-start-10 md:justify-self-end w-full max-w-[240px]">
           <div className="grid grid-cols-2 gap-4 md:text-sm text-sm md:text-right">
             <div className="space-y-0.5">
               <div className="font-semibold">Site</div>
